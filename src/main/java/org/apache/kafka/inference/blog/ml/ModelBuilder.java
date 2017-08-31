@@ -92,12 +92,7 @@ public final class ModelBuilder {
     }
 
     private static OnlineLogisticRegression onlineRegression(List<FlightData> allFlightData) {
-        OnlineLogisticRegression logisticRegression = new OnlineLogisticRegression(2, FlightData.NUM_FEATURES, new L1())
-            .learningRate(1)
-            .alpha(1)
-            .lambda(0.000001)
-            .stepOffset(10000)
-            .decayExponent(0.2);
+        OnlineLogisticRegression logisticRegression = new OnlineLogisticRegression(2, FlightData.NUM_FEATURES, new L1());
 
         for (int i = 0; i < NUM_EPOCS; i++) {
             for (FlightData flightData : allFlightData) {
