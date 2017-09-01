@@ -39,8 +39,8 @@ import java.util.Set;
 public final class ModelBuilder {
 
     private static final int NUM_EPOCS = 20;
-    private static final double PERCENTAGE_OF_DATASET_TO_USE = .5;
-    private static final double TRAINING_PERCENTAGE = .40;
+    private static final int MAX_RECORDS = 500;
+    private static final double TRAINING_PERCENTAGE = .20;
     private static final Logger LOG = LoggerFactory.getLogger(ModelBuilder.class);
 
     private ModelBuilder() {}
@@ -80,7 +80,7 @@ public final class ModelBuilder {
         Map<String, List<String>> sample = new HashMap<>();
         SecureRandom random = new SecureRandom();
         for (Map.Entry<String, List<String>> entry : allData.entrySet()) {
-            int total = (int) (entry.getValue().size() * PERCENTAGE_OF_DATASET_TO_USE);
+            int total = entry.getValue().size() > MAX_RECORDS ? MAX_RECORDS : entry.getValue().size();
             String key = entry.getKey();
             List<String> allFlights = entry.getValue();
             Collections.shuffle(allFlights);
