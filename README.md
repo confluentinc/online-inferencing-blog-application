@@ -22,7 +22,7 @@ It is assumed that a Kafka instance already installed and running.
 
 To run this application
 
-1. Create the following topics onlineRegression-by-airport, raw-airline-data, ml-data-input, predictions
+1. Create the following topics: `onlineRegression-by-airport`, `raw-airline-data`, `ml-data-input`, `predictions` .
 2. To build the initial model and populate the GlobalKTable run `./gradlew popluateGlobalKTable` from  terminal window.
 3. Then start the `KStreamsOnLineInferencing` application with `./gradlew runOnlineInference`
 3. From a separate terminal window start the data feed of flight data that the application will make predictions for and additionally will 
