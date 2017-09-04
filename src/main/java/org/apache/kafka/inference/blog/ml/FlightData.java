@@ -41,7 +41,10 @@ public class FlightData {
     public FlightData(String data) {
         String[] dataParts = data.split(",");
 
-        String late = dataParts[ARR_DELAY_NEW.ordinal()];
+        int arrivalDelayIndex = dataParts.length == Fields.values().length ? ARR_DELAY_NEW.ordinal() : ARR_DELAY_NEW.ordinal() - 2;
+        int distanceIndex = dataParts.length == Fields.values().length ? DISTANCE.ordinal() : DISTANCE.ordinal() - 2;
+
+        String late = dataParts[arrivalDelayIndex];
         late = late.isEmpty() ? "0.0" : late;
         realResult = Double.parseDouble(late) == 0.0 ? 1 : 0;
         bias.addToVector("1", vector);
@@ -55,8 +58,18 @@ public class FlightData {
                     categoryValueEncoder.addToVector(dataParts[field.ordinal()], vector);
                     break;
                 case DISTANCE:
-                    Double distance = Double.parseDouble(dataParts[DISTANCE.ordinal()]) / 100000;
+                    Double distance = Double.parseDouble(dataParts[distanceIndex]) / 100000;
                     numericEncoder.addToVector(distance.toString(), vector);
+                    break;
+                case TAXI_OUT:
+                case DEP_DELAY:
+                    if (dataParts.length == Fields.values().length) {
+                        String strField = dataParts[field.ordinal()];
+                        if (strField.isEmpty()) {
+                            strField = "0.0";
+                        }
+                        numericEncoder.addToVector(strField, vector);
+                    }
                     break;
                 default:
                     // don't care

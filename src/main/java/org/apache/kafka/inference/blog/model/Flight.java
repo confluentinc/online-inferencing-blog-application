@@ -17,11 +17,14 @@
 
 package org.apache.kafka.inference.blog.model;
 
+import org.apache.kafka.inference.blog.data.Fields;
+
 import static org.apache.kafka.inference.blog.data.Fields.ARR_DELAY_NEW;
 import static org.apache.kafka.inference.blog.data.Fields.CRS_DEP_TIME;
 import static org.apache.kafka.inference.blog.data.Fields.DAY_OF_WEEK;
 import static org.apache.kafka.inference.blog.data.Fields.FL_NUM;
 import static org.apache.kafka.inference.blog.data.Fields.MONTH;
+import static org.apache.kafka.inference.blog.data.Fields.ORIGIN;
 import static org.apache.kafka.inference.blog.data.Fields.UNIQUE_CARRIER;
 
 public class Flight {
@@ -31,16 +34,19 @@ public class Flight {
     private final String time;
     private final String airLine;
     private final String actualDelay;
+    private final String airport;
 
 
     public Flight(String data) {
         String[] parts = data.split(",");
+        int arrivalDelayIndex = parts.length == Fields.values().length ? ARR_DELAY_NEW.ordinal() : ARR_DELAY_NEW.ordinal() - 2;
         this.month = parts[MONTH.ordinal()];
         this.day = parts[DAY_OF_WEEK.ordinal()];
         this.flightNumber = parts[FL_NUM.ordinal()];
         this.time = parts[CRS_DEP_TIME.ordinal()];
         this.airLine = parts[UNIQUE_CARRIER.ordinal()];
-        this.actualDelay = parts[ARR_DELAY_NEW.ordinal()];
+        this.airport = parts[ORIGIN.ordinal()];
+        this.actualDelay = parts[arrivalDelayIndex];
     }
 
     @Override
@@ -52,6 +58,7 @@ public class Flight {
                ", time='" + time + '\'' +
                ", airLine='" + airLine + '\'' +
                ", actualDelay='" + actualDelay + '\'' +
+               ", airport='" + airport + '\'' +
                '}';
     }
 

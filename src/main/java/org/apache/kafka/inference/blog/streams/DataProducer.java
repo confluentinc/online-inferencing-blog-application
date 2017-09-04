@@ -62,6 +62,7 @@ public final class DataProducer {
         Map<String, List<String>> dataToLoad = DataLoader.getFlightDataByAirport("src/main/resources/" + fileName);
         Producer<String, String> producer = getDataProducer();
         int counter = 0;
+        int maxPerAirport = 200;
         for (Map.Entry<String, List<String>> entry : dataToLoad.entrySet()) {
                 String key = entry.getKey();
             for (String flight : entry.getValue()) {
@@ -73,6 +74,10 @@ public final class DataProducer {
                 counter++;
                 if (counter > 0 && counter % 10 == 0) {
                     Thread.sleep(10000);
+                }
+
+                if(counter > 0 && counter % maxPerAirport == 0) {
+                    break;
                 }
             }
         }

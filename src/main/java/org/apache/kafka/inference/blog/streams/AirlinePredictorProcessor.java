@@ -50,6 +50,7 @@ public class AirlinePredictorProcessor extends AbstractProcessor<String, String>
         if (flightList == null) {
             flightList = new ArrayList<>();
         }
+        LOG.debug("Adding key {}", airportId);
         flightList.add(flightData);
         this.flights.put(airportId, flightList);
     }
@@ -62,6 +63,7 @@ public class AirlinePredictorProcessor extends AbstractProcessor<String, String>
 
             List<String> flightList = kv.value;
             String key = kv.key;
+            LOG.debug("Found Key {}", key);
             if(flightList.size() >= 100){
                try {
                    LOG.debug("sending flight list {}", flightList);

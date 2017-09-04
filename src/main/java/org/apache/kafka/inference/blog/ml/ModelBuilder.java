@@ -48,6 +48,7 @@ public final class ModelBuilder {
     public static void main(String[] args) throws Exception {
         LOG.info("Training now");
         train("src/main/resources/allFlights.txt");
+        train("src/main/resources/incoming_data1.csv");
     }
 
     public static Map<String, OnlineLogisticRegression> train(String path) throws IOException {
