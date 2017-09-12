@@ -55,12 +55,12 @@ public class KStreamsOnLineInferencing {
         KStreamBuilder builder = new KStreamBuilder();
 
         // this stream reads in the raw airline data and does the updating of onlineRegression
-        KStream<String, String> rawDataStream = builder.stream("raw-airline-data");
+        KStream<String, String> dataByAirportStream = builder.stream("raw-airline-data");
 
         GlobalKTable<String, byte[]> regressionsByAirPortTable = builder.globalTable(Serdes.String(), byteArraySerde, "onlineRegression-by-airport");
 
         // stream reads raw data joins with co-efficients then makes prediction
-        rawDataStream.join(regressionsByAirPortTable,
+        dataByAirportStream.join(regressionsByAirPortTable,
                            (k, v) -> k,
                            DataRegression::new)
             .mapValues(Predictor::predict)

@@ -57,27 +57,27 @@ public class AirlinePredictorProcessor extends AbstractProcessor<String, String>
 
     @Override
     public void punctuate(long timestamp) {
-        KeyValueIterator<String, List<String>> lateKeyIterator = flights.all();
-        while (lateKeyIterator.hasNext()) {
-            KeyValue<String, List<String>> kv = lateKeyIterator.next();
+        KeyValueIterator<String, List<String>> allFlights = flights.all();
+        while (allFlights.hasNext()) {
+            KeyValue<String, List<String>> kv = allFlights.next();
 
             List<String> flightList = kv.value;
-            String key = kv.key;
-            LOG.debug("Found Key {}", key);
+            String airportCode = kv.key;
+            LOG.debug("Found Key {}", airportCode);
             if(flightList.size() >= 100){
                try {
                    LOG.debug("sending flight list {}", flightList);
                    byte[] serializedRegression = ModelBuilder.train(flightList);
-                   context().forward(key, serializedRegression);
-                   LOG.info("updating model for {}", key);
+                   context().forward(airportCode, serializedRegression);
+                   LOG.info("updating model for {}", airportCode);
                    flightList.clear();
-                   flights.put(key, flightList);
+                   flights.put(airportCode, flightList);
                }catch (Exception e) {
-                   LOG.error("couldn't update online regression for {}",key, e);
+                   LOG.error("couldn't update online regression for {}",airportCode, e);
                }
             }
         }
-      lateKeyIterator.close();
+      allFlights.close();
     }
 
 }
