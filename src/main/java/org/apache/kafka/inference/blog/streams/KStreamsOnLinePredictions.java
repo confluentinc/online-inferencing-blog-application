@@ -44,9 +44,9 @@ import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class KStreamsOnLineInferencing {
+public class KStreamsOnLinePredictions {
 
-    private static final Logger LOG = LoggerFactory.getLogger(KStreamsOnLineInferencing.class);
+    private static final Logger LOG = LoggerFactory.getLogger(KStreamsOnLinePredictions.class);
 
     public static void main(String[] args) throws Exception {
 
