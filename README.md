@@ -1,4 +1,4 @@
-# On Line Inferencing in Kafka Streams
+# On Line Predictions in Kafka Streams
 
 This Kafka Streams application demonstrates using embedded ML library [Apache Mahout](https://github.com/apache/mahout) to perform
 OnlineLogisticRegression of flight data from the [Bureau of Transportation Statistics](https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236)
