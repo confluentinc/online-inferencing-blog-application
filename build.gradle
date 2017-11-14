@@ -39,7 +39,7 @@ task runDataFeed(type: JavaExec) {
 
 task runOnlinePredictions(type: JavaExec) {
     classpath sourceSets.main.runtimeClasspath
-    main = "org.apache.kafka.inference.blog.streams.KStreamsOnLineInferencing"
+    main = "org.apache.kafka.inference.blog.streams.KStreamsOnLinePredictions"
 }
 
 dependencies {
